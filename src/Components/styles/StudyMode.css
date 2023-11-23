@@ -1,0 +1,52 @@
+.study-container {
+    margin-top: 1rem;
+}
+
+.study-grade-result {
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 1rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 5rem;
+    width: 70%;
+}
+
+.grade-correct {
+    background-color: rgba(144, 238, 144, 0.4); /* lightgreen with 50% opacity */
+}
+
+.grade-incorrect {
+    background-color: rgba(216, 135, 145, 0.5); /* #D98791 equivalent with 50% opacity */
+}
+
+.study-answer-container {
+    height: 3rem;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+}
+
+.study-answer-container > input {
+    flex: 6;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.study-answer-container > button {
+    flex: 4;
+    border-radius: 0;
+}
+
+
+
+.study-mode-controls {
+    margin-top: 1rem;
+    justify-content: space-evenly;
+    display: flex;
+}
+
+.study-mode-controls > button {
+    width: 45%
+}

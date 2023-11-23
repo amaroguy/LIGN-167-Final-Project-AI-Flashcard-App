@@ -1,0 +1,16 @@
+
+#home-screen-trio {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 50%
+}
+
+#home-screen-trio > input {
+    height: 2rem;
+}
+
+#home-screen-trio > div > button {
+    border-radius: 0;
+    width: 50%
+}

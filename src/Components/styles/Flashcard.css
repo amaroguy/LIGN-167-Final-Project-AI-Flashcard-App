@@ -1,0 +1,45 @@
+.flashcard {
+    overflow: hidden;
+    border-radius: 4px;
+    background-color: #FAFCF9;
+    background-size: 100% 1.5em; /* Size of the lines */
+
+}
+
+.flashcard-content {
+    padding: 1.65rem 2rem;
+    height: 100%;
+    flex: 9;
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 1.4em, /* Adjust this to control the line spacing */
+        #ADD8E6 1.4em,
+        #ADD8E6 1.5em /* Adjust this to control the thickness of the line */
+      );
+}
+
+.flashcard-bottom > button {
+    width: 100%;
+    border-radius: 0;
+    flex: 1
+}
+
+.flashcard-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 10rem;
+}
+
+.flashcard-container > button {
+    width: 500px;
+}
+
+.flashcard-category {
+    border-bottom: 2px solid pink;
+    padding: 0.25rem 0;
+    padding-right: 1rem;
+    text-align: end;
+    font-weight: bold;
+}
+
