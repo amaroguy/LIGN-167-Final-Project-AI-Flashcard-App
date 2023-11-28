@@ -28,7 +28,8 @@ export default function HomeScreen({gptService, flashcardStore}: HomeScreenProps
                 <button onClick = {() => setAreFlashcardsShowing(!areFlashcardsShowing)}> {areFlashcardsShowing ? "Hide" : "Show"} all flashcards </button>
             </div>
         </div>
+        <div class="flashcard-drawing"><h2>Show All Flashcards...</h2></div>
         {gptService.isFlashcardBeingGenerated && <div> Generating Flashcard... </div>}
-        {<div>{flashcardStore.areFlashcardsLoading ? "Loading..." : areFlashcardsShowing && renderFlashcards()}</div>} 
+        {<div>{flashcardStore.areFlashcardsLoading ? "Loading..." : areFlashcardsShowing && renderFlashcards()}</div>}
     </> 
 }

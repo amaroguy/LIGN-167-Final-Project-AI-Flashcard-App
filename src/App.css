@@ -1,13 +1,14 @@
 * {
-  /* background-color: #FDFFFC; */
+   /*background-color: #FDFFFC; */
   color: #011627
 }
 
 #root {
-  max-width: 1280px;
+  /*max-width: 1280px;*/
   height: 100%;
   margin: 0 auto;
   text-align: center;
+  background-color: #ffd6a5;
 }
 
 .logo {
@@ -44,4 +45,94 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.l-corner {
+    border-bottom-left-radius: 12px;
+}
+
+.r-corner {
+    border-bottom-right-radius: 12px;
+}
+
+
+/* Footer */
+/*footer {
+  background: var(--secondary-color);
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+}
+*/
+
+input {
+  color: #fafafa;
+  padding-left: 10px;
+}
+
+input:focus {
+    outline: none;
+}
+
+#home-screen-trio {
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+#home-screen-trio input {
+    border-radius: 0px;
+    border: 0px;
+}
+
+nav {
+    height: 50px;
+}
+
+.nav-btn {
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;  For positioning the pseudo-element 
+    overflow: hidden;  To contain the pseudo-element 
+}
+
+/* gets rid of browser blue & black bar around inputs and buttons when clicked on */
+/*.nav-btn:focus {
+    outline: none;
+}*/
+
+/* Active Button Styling */
+/*.nav-btn.active {
+    border-bottom: 3px solid white;
+    color:  white;
+}
+*/
+/* Pseudo-element for Bottom Border on Active Button */
+.nav-btn.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 5px;  /*Height of the border */
+    background-color: var(--selected-nav-color);
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.flashcard-drawing {
+    height: 300px;
+    width: 600px;
+    padding-bottom: 40px;
+    display: flex;
+    align-items: center; /* Vertically centers the content */
+    justify-content: center; /* Horizontally centers the content, if needed */
+    background-color: #ffeedd;
+    margin: 20px auto;
+    box-shadow: /* flashcard drawing */
+        5px 5px 0px #f0e0d0,
+        10px 10px 0px #e0d0c0,
+        14px 17px 0px #d0c0b0,
+        18px 22px 0px #c0b0a0;
+
+
 }

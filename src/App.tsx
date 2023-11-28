@@ -16,6 +16,7 @@ function App() {
   const flashcardStore = useFlashcardStorage()
   const gptService = createGPTService(API_KEY, setIsLoading, flashcardStore)
   const [appState, setAppState] = useState<APP_MODE>(APP_MODE.HOME_SCREEN)
+  const [activeNavButton, setActiveNavButton] = useState(null);
 
   const getAppScreen = (appMode: APP_MODE) => {
     switch(appMode) {
@@ -37,11 +38,16 @@ function App() {
   return (
     <>
       <nav>
-        <button onClick = {() => setIsLoading(false)} className="nav-btn"> RESET LOADING </button>
-        <button onClick = {() => setAppState(APP_MODE.STUDY_MODE)}  className="nav-btn"> Study Mode </button>
-        <button onClick={() => setAppState(APP_MODE.HOME_SCREEN)} className="nav-btn"> Home </button>
-        <button onClick= {() => setAppState(APP_MODE.DEBUG_MODE)} className="nav-btn"> DEBUG MODE </button>
-        <button onClick = {() => setAppState(APP_MODE.SETTINGS_SCREEN)}> Settings </button>
+        <button onClick = {() => {setIsLoading(false); setActiveNavButton('reset');}} 
+        className={`nav-btn l-corner ${activeNavButton === 'reset' ? 'active' : ''}`}> RESET LOADING </button>
+        <button onClick = {() => {setAppState(APP_MODE.STUDY_MODE); setActiveNavButton('study');}}  
+        className={`nav-btn ${activeNavButton === 'study' ? 'active' : ''}`}> Study Mode </button>
+        <button onClick={() => {setAppState(APP_MODE.HOME_SCREEN); setActiveNavButton('home');}}
+        className={`nav-btn ${activeNavButton === 'home' ? 'active' : ''}`}> Home </button>
+        <button onClick= {() => {setAppState(APP_MODE.DEBUG_MODE); setActiveNavButton('debug');}} 
+        className={`nav-btn ${activeNavButton === 'debug' ? 'active' : ''}`}> DEBUG MODE </button>
+        <button onClick = {() => {setAppState(APP_MODE.SETTINGS_SCREEN); setActiveNavButton('settings');}} 
+        className={`nav-btn r-corner ${activeNavButton === 'settings' ? 'active' : ''}`}> Settings </button>
       </nav>
       <div id = "main-app">
         <div className="card">
