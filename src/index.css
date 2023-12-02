@@ -6,7 +6,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #CAF1EB;
+  height: 100%;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,10 +15,10 @@
   -webkit-text-size-adjust: 100%;
 
   
-  /*--primary-color: #FFD6A5; /* Light orange */*/
-  /*--secondary-color: #FFC6FF; /* Soft pink */*/
-  /*--accent-color-1: #A0C4FF; /* Sky blue */*/
-  /*--accent-color-2: #FDFFB6; /* Pastel yellow */*/
+  /*--primary-color: #FFD6A5; /* Light orange */
+  /*--secondary-color: #FFC6FF; /* Soft pink */
+  /*--accent-color-1: #A0C4FF; /* Sky blue */
+  /*--accent-color-2: #FDFFB6; /* Pastel yellow */
   /*--background-color: #FFFFFC;  Off-white for a clean background */
   --text-color: #495057;  /*Dark gray for readable text */
   --selected-nav-color: #568c8c;
@@ -29,7 +29,7 @@
 }
 
 html {
-  height: 100%;
+  background-color: #ffd6a5;
 }
 
 body {
@@ -37,7 +37,6 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif; /* Modern, readable font */
   color: var(--text-color);
-  background-color:  #FFFFFC;
   line-height: 1.6; /* Spacing between lines */
 }
 
@@ -55,7 +54,7 @@ a:hover {
 }
 
 #main-app {
-  height: 100%;
+  background-color: #ffd6a5;
 }
 
 /* Layout and White Space */
@@ -102,16 +101,3 @@ button:focus-visible {
   outline: var(--focus-outline);
 }
 
-/* @media (prefers-color-scheme: light) {
-  :root {
-    padding: 0;
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */

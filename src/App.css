@@ -5,10 +5,8 @@
 
 #root {
   /*max-width: 1280px;*/
-  height: 100%;
   margin: 0 auto;
   text-align: center;
-  background-color: #ffd6a5;
 }
 
 .logo {
@@ -85,6 +83,7 @@ input:focus {
 
 nav {
     height: 50px;
+    background-color: #ffd6a5;
 }
 
 .nav-btn {

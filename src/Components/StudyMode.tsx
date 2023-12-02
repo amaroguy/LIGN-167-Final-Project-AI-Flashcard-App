@@ -108,7 +108,7 @@ export const StudyMode = ({flashcards, setAppState, gptService}: StudyModeProps)
     if(flashcards.length == 0){
         return <>
             <h1> No flashcards to study! </h1>
-            <div class="flashcard-drawing"><h2>Empty...</h2></div>
+            <div className="flashcard-drawing"><h2>Empty...</h2></div>
         </>
     }
 

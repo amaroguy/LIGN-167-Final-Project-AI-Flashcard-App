@@ -44,10 +44,8 @@ function App() {
   return (
     <>
       <nav>
-        <button onClick = {() => {setIsLoading(false); setActiveNavButton('reset');}} 
-        className={`nav-btn l-corner ${activeNavButton === 'reset' ? 'active' : ''}`}> RESET LOADING </button>
         <button onClick = {() => {setAppState(APP_MODE.STUDY_MODE); setActiveNavButton('study');}}  
-        className={`nav-btn ${activeNavButton === 'study' ? 'active' : ''}`}> Study Mode </button>
+        className={`nav-btn l-corner ${activeNavButton === 'study' ? 'active' : ''}`}> Study Mode </button>
         <button onClick={() => {setAppState(APP_MODE.HOME_SCREEN); setActiveNavButton('home');}}
         className={`nav-btn ${activeNavButton === 'home' ? 'active' : ''}`}> Home </button>
         <button onClick= {() => {setAppState(APP_MODE.DEBUG_MODE); setActiveNavButton('debug');}} 
