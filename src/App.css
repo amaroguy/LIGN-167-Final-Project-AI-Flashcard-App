@@ -66,7 +66,7 @@
 */
 
 input {
-  color: #fafafa;
+  color: black;
   padding-left: 10px;
 }
 
@@ -91,8 +91,8 @@ nav {
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;
-    position: relative;  For positioning the pseudo-element 
-    overflow: hidden;  To contain the pseudo-element 
+    position: relative;  
+    overflow: hidden;  
 }
 
 /* gets rid of browser blue & black bar around inputs and buttons when clicked on */

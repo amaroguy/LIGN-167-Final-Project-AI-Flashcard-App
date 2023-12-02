@@ -13,7 +13,9 @@ contextBridge.exposeInMainWorld('flashcardStore', {
 
 contextBridge.exposeInMainWorld('settings', {
   getApiKey: () => ipcRenderer.invoke("settings:getApiKey"),
-  setApiKey: (apiKey: string) => ipcRenderer.invoke('settings:setApiKey', apiKey)
+  setApiKey: (apiKey: string) => ipcRenderer.invoke('settings:setApiKey', apiKey),
+  setFlashcardPrompt: (flashcardPrompt: string) => ipcRenderer.invoke('settings:setFlashcardPrompt', flashcardPrompt),
+  getFlashcardPrompt: () => ipcRenderer.invoke("settings:getFlashcardPrompt")
 })
 // `exposeInMainWorld` can't detect attributes and methods of `prototype`, manually patching it.
 function withPrototype(obj: Record<string, any>) {

@@ -7,16 +7,18 @@ import { APP_MODE } from './utils'
 import { StudyMode } from './Components/StudyMode'
 import { DebugScreen } from './Components/DebugScreen'
 import { SettingsScreen } from './Components/SettingsScreen'
+import { useSettings } from './services/Settings/Settings'
 
 function App() {
   console.log("Starting!")
 
   const API_KEY = ""
   const [isLoading, setIsLoading] = useState(false)
+  const settings = useSettings()
   const flashcardStore = useFlashcardStorage()
   const gptService = createGPTService(API_KEY, setIsLoading, flashcardStore)
   const [appState, setAppState] = useState<APP_MODE>(APP_MODE.HOME_SCREEN)
-  const [activeNavButton, setActiveNavButton] = useState(null);
+  const [activeNavButton, setActiveNavButton] = useState("");
 
   const getAppScreen = (appMode: APP_MODE) => {
     switch(appMode) {
@@ -30,9 +32,13 @@ function App() {
         return <DebugScreen />
       }
       case APP_MODE.SETTINGS_SCREEN: {
-        return <SettingsScreen />
+        return <SettingsScreen settings={settings}/>
       }
     }
+  }
+
+  if(settings.areSettingsLoading || flashcardStore.areFlashcardsLoading || isLoading){
+    return <div> Loading ... </div>
   }
 
   return (
@@ -52,11 +58,7 @@ function App() {
       <div id = "main-app">
         <div className="card">
           {!API_KEY.length && "YOU HAVE NOT SET YOUR API KEY IN APP.TSX!!!"}
-          {
-            isLoading ? 
-            <div> Loading </div> : 
-            getAppScreen(appState)
-          }
+          {getAppScreen(appState)}
         </div>
       </div>     
     </>

@@ -34,8 +34,10 @@ declare global{
       deleteAll: () => void
     },
     settings: {
-      getApiKey: () => string,
-      setApiKey: () => void
+      getApiKey: () => Promise<string>,
+      setApiKey: (apiKey: string) => void,
+      setFlashcardPrompt: (apiKey: string) => void,
+      getFlashcardPrompt: () => Promise<string>
     }
   }
 }

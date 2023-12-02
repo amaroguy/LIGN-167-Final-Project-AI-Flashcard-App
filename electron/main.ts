@@ -87,13 +87,24 @@ app.whenReady().then(() => {
     store.set('flashcards', flashcards)
     console.log("SHOULD BE", store.get('flashcards'))
   })
-
+  
   ipcMain.handle('settings:getApiKey', () => {
+    console.log("getting the apikey!")
     return store.get('apiKey', "")
   })
-
-  ipcMain.handle('settings:setApiKey', (apiKey) => {
+  
+  //@ts-ignore
+  ipcMain.handle('settings:setApiKey', (event, apiKey) => {
+    console.log("setting the apikey to", apiKey, "event is", event)
     return store.set('apiKey', apiKey)
+  })
+  
+  //@ts-ignore
+  ipcMain.handle('settings:setFlashcardPrompt', (event, flashcardPrompt) => {
+    return store.set("flashcardPrompt", flashcardPrompt)
+  })
+  ipcMain.handle('settings:getFlashcardPrompt', () => {
+    return store.get("flashcardPrompt", "")
   })
 
   createWindow()
