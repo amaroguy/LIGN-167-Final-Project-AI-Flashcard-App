@@ -4,6 +4,7 @@ import { Flashcard } from "../Storage/FlashcardStorage";
 import { FlashcardStore } from "../Storage/useFlashcardStorage";
 import { FlashcardGradeResult } from "../../Components/StudyMode";
 import { useState } from "react"
+import { Settings } from "../Settings/Settings";
 
 export interface GPTService {
     askAssistant: (msg: string) => Promise<void>,
@@ -22,13 +23,13 @@ const MOCK_FLASHCARD: Flashcard = {
 }
 
 export function createGPTService(
-    API_KEY: string, 
+    settings: Settings, 
     setIsLoading: (l: boolean) => any,
     flashcardStore: FlashcardStore): GPTService {
     
     // const flashcardStore = useFlashcardStore()
     const openai = new OpenAI({
-        apiKey: API_KEY,
+        apiKey: settings.apiKey,
         dangerouslyAllowBrowser: true
     })
        
@@ -138,7 +139,9 @@ export function createGPTService(
         
         setIsFlashcardBeingGenerated(true)
         // UNCOMMENT THIS
-        const prompt = makeFlashcardPrompt(topic)
+        const prompt = makeFlashcardPrompt(topic, settings.flashcardPrompt)
+
+        
         const thread = await openai.beta.threads.create()
         const run = await createAndProcessMessage(thread.id, LIGN_ASSISTANT_ID, prompt)
 

@@ -12,11 +12,10 @@ import { useSettings } from './services/Settings/Settings'
 function App() {
   console.log("Starting!")
 
-  const API_KEY = ""
   const [isLoading, setIsLoading] = useState(false)
   const settings = useSettings()
   const flashcardStore = useFlashcardStorage()
-  const gptService = createGPTService(API_KEY, setIsLoading, flashcardStore)
+  const gptService = createGPTService(settings, setIsLoading, flashcardStore)
   const [appState, setAppState] = useState<APP_MODE>(APP_MODE.HOME_SCREEN)
   const [activeNavButton, setActiveNavButton] = useState("");
 
@@ -55,7 +54,7 @@ function App() {
       </nav>
       <div id = "main-app">
         <div className="card">
-          {!API_KEY.length && "YOU HAVE NOT SET YOUR API KEY IN APP.TSX!!!"}
+          {!settings.apiKey.length && "YOU HAVE NOT SET YOUR API KEY IN SETTINGS!"}
           {getAppScreen(appState)}
         </div>
       </div>     
