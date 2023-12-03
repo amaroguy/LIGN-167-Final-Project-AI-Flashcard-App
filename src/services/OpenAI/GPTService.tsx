@@ -87,100 +87,114 @@ export function createGPTService(
     }
 
     const gradeFlashcard = async (topic: string, userAnswer: string) => {
+        try {
+            setIsFlashcardBeingGraded(true)
+            console.log("Grading the flashcard!")
+    
+            const prompt = makeGradeFlashcardPrompt(topic, userAnswer)
+            const thread = await openai.beta.threads.create()
+            const run = await createAndProcessMessage(thread.id, LIGN_ASSISTANT_ID, prompt)
+            let gradeResult = undefined
+    
+    
+            let runStatus = await openai.beta.threads.runs.retrieve(
+                thread.id,
+                run.id
+            );
+    
+            while(runStatus.status !== "completed"){
+                console.log("polling for grading")
+                await new Promise((resolve) => setTimeout(resolve, 2000));
+                runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+    
+                if(runStatus.status === "requires_action" && runStatus.required_action){
+    
+                    console.log(runStatus)
+    
+                    const [flashcardCall] = runStatus.required_action.submit_tool_outputs.tool_calls
+                    
+                    gradeResult = JSON.parse(flashcardCall.function.arguments) as FlashcardGradeResult
 
-        setIsFlashcardBeingGraded(true)
-        console.log("Grading the flashcard!")
+                    if(gradeResult.correctness === undefined){
+                        throw new Error("Error: did not call the grading function")
+                    }
 
-        const prompt = makeGradeFlashcardPrompt(topic, userAnswer)
-        const thread = await openai.beta.threads.create()
-        const run = await createAndProcessMessage(thread.id, LIGN_ASSISTANT_ID, prompt)
-        let gradeResult = undefined
-
-
-        let runStatus = await openai.beta.threads.runs.retrieve(
-            thread.id,
-            run.id
-        );
-
-        while(runStatus.status !== "completed"){
-            console.log("polling for grading")
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-            runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
-
-            if(runStatus.status === "requires_action" && runStatus.required_action){
-
-                console.log(runStatus)
-
-                const [flashcardCall] = runStatus.required_action.submit_tool_outputs.tool_calls
-                
-                gradeResult = JSON.parse(flashcardCall.function.arguments) as FlashcardGradeResult
-                gradeResult.threadId = thread.id
-                
-                //Tell it that it did a good job
-                await openai.beta.threads.runs.submitToolOutputs(thread.id, run.id, {
-                    tool_outputs: [
-                        {tool_call_id: flashcardCall.id, output: JSON.stringify({status: "success"})}
-                    ]
-                })
-
-            } else if(isBadRunStatus(runStatus)){
-                console.log("Something went very wrong", runStatus)
-                setIsFlashcardBeingGraded(false)
-                return
+                    gradeResult.threadId = thread.id
+                    
+                    //Tell it that it did a good job
+                    await openai.beta.threads.runs.submitToolOutputs(thread.id, run.id, {
+                        tool_outputs: [
+                            {tool_call_id: flashcardCall.id, output: JSON.stringify({status: "success"})}
+                        ]
+                    })
+    
+                } else if(isBadRunStatus(runStatus)){
+                    setIsFlashcardBeingGraded(false)
+                    throw new Error("Bad Status: " + runStatus.status)
+                }
             }
+
+            if(!gradeResult){
+                throw new Error("Error: did not call the grading function")
+            }
+
+            return gradeResult
+        } catch (e) {
+            throw e
+        } finally {
+            setIsFlashcardBeingGraded(false)
         }
-        
-        
-        setIsFlashcardBeingGraded(false)
-        return gradeResult
     }
 
     const generateFlashcardThread = async (topic: string) => {
-        
-        setIsFlashcardBeingGenerated(true)
-        // UNCOMMENT THIS
-        const prompt = makeFlashcardPrompt(topic, settings.flashcardPrompt)
-
-        
-        const thread = await openai.beta.threads.create()
-        const run = await createAndProcessMessage(thread.id, LIGN_ASSISTANT_ID, prompt)
-
-        let runStatus = await openai.beta.threads.runs.retrieve(
-            thread.id,
-            run.id
-        );
-
-        while(runStatus.status !== "completed"){
-            console.log("polling")
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-            runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
-
-            if(runStatus.status === "requires_action" && runStatus.required_action){
-                const [flashcardCall] = runStatus.required_action.submit_tool_outputs.tool_calls
-                
-                let parsedArgs = JSON.parse(flashcardCall.function.arguments)
-                parsedArgs.threadId = thread.id
-                flashcardStore.addFlashcard(parsedArgs as Flashcard)
-
-                console.log("FLASHCARD CALL", parsedArgs)
-                //TODO CREATE THE FLASHCARD
-
-                //Tell it that it did a good job
-                await openai.beta.threads.runs.submitToolOutputs(thread.id, run.id, {
-                    tool_outputs: [
-                        {tool_call_id: flashcardCall.id, output: JSON.stringify({status: "success"})}
-                    ]
-                })
-
-            } else if(isBadRunStatus(runStatus)){
-                console.log("Something went very wrong", runStatus)
-                setIsFlashcardBeingGenerated(false)
-                return
+        try {
+            setIsFlashcardBeingGenerated(true)
+            const prompt = makeFlashcardPrompt(topic, settings.flashcardPrompt)
+            const thread = await openai.beta.threads.create()
+            const run = await createAndProcessMessage(thread.id, LIGN_ASSISTANT_ID, prompt)
+    
+            let runStatus = await openai.beta.threads.runs.retrieve(
+                thread.id,
+                run.id
+            );
+    
+            while(runStatus.status !== "completed"){
+                console.log("polling")
+                await new Promise((resolve) => setTimeout(resolve, 2000));
+                runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+    
+                if(runStatus.status === "requires_action" && runStatus.required_action){
+                    const [flashcardCall] = runStatus.required_action.submit_tool_outputs.tool_calls
+                    
+                    let parsedArgs = JSON.parse(flashcardCall.function.arguments) as Flashcard
+                    parsedArgs.threadId = thread.id
+    
+                    if(!parsedArgs.category){
+                        throw new Error("Something went wrong, flashcard not returned.")
+                    }
+    
+                    flashcardStore.addFlashcard(parsedArgs as Flashcard)
+    
+                    console.log("FLASHCARD CALL", parsedArgs)
+    
+                    //Tell it that it did a good job
+                    await openai.beta.threads.runs.submitToolOutputs(thread.id, run.id, {
+                        tool_outputs: [
+                            {tool_call_id: flashcardCall.id, output: JSON.stringify({status: "success"})}
+                        ]
+                    })
+    
+                } else if(isBadRunStatus(runStatus)){
+                    console.log("Something went very wrong", runStatus)
+                    throw new Error("Bad run status:" + runStatus.status)
+                }
             }
+            
+        } catch (error) {
+            throw error
+        } finally {
+            setIsFlashcardBeingGenerated(false)
         }
-        
-        setIsFlashcardBeingGenerated(false)
-        return
     }
 
     return {

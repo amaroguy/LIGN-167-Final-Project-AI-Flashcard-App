@@ -38,6 +38,7 @@ export const StudyMode = ({flashcards, setAppState, gptService}: StudyModeProps)
     let [userAnswer, setUserAnswer] = useState("")
     let [flashcardGradeResult, setFlashcardGradeResult] = useState<FlashcardGradeResult>(UNDECIDED_STATE)
     let [isGrading, setIsGrading] = useState(false)
+    let [errorMessage, setErrorMessage] = useState("")
 
     const restartStudySession = () => {
         setIsStudyModeFinished(false)
@@ -66,21 +67,20 @@ export const StudyMode = ({flashcards, setAppState, gptService}: StudyModeProps)
     }
 
     const gradeFlashcard = async (userAnswer: string) => {
-        setIsGrading(true)
-
-        const topic = flashcards[currentFlashcardIndex].front
-        const result = await gptService.gradeFlashcard(topic, userAnswer)
-        console.log("got back", result)
-
-
-        if(result === undefined){
-            console.log("Something went VERY wrong!")
+        try {
+            setIsGrading(true)
+            const topic = flashcards[currentFlashcardIndex].front
+            const result = await gptService.gradeFlashcard(topic, userAnswer) as FlashcardGradeResult
+            setFlashcardGradeResult(result)
             setIsGrading(false)
-            return
+        } catch(e) {
+            if(e instanceof Error){
+                setErrorMessage(e.message)
+            }
+        } finally {
+            setIsGrading(false)
         }
         
-        setFlashcardGradeResult(result)
-        setIsGrading(false)
 
         // setFlashcardGradeResult((oldState) => ({...oldState, correctness: CorrectnessState.INCORRECT, clarification: "Drop out"}))
     }
@@ -121,6 +121,7 @@ export const StudyMode = ({flashcards, setAppState, gptService}: StudyModeProps)
                 <input placeholder="Your answer here..." value={userAnswer} onChange = {(e) => setUserAnswer(e.target.value)} disabled={isGrading}/>    
                 <button onClick = {() => gradeFlashcard(userAnswer)} disabled={isGrading}> Submit answer </button>
             </div>
+            {errorMessage.length && <div> {errorMessage} </div>}
             {gptService.isFlashcardBeingGraded && <div> Grading Flashcard... </div>}
             {flashcardGradeResult.correctness !== CorrectnessState.UNDECIDED && !isGrading && getCorrectnessUI(flashcardGradeResult) } 
             <div className = "study-mode-controls">

@@ -31,7 +31,7 @@ export const retrieveThreadResponse = (msgs: OpenAI.Beta.Threads.Messages.Thread
 export const makeFlashcardPrompt = (topic: string, customInstructions?: string) => {
 
     const BASE = `I'm having trouble understanding the concept of ${topic}, could you please create a flashcard using the create_flashcard function? I want the flashcard as follows: `
-    const INSTRUCTIONS = customInstructions || 'Include the topic in the front, and an explanation/exmaple in the back.'
+    const INSTRUCTIONS = customInstructions || 'Include the topic in the front, and an explanation/example in the back.'
     const RETRIEVAL_REMINDER = " Make sure to use your retrieval tool to source the files provided."
 
     console.log(BASE + INSTRUCTIONS+ RETRIEVAL_REMINDER)
@@ -39,7 +39,7 @@ export const makeFlashcardPrompt = (topic: string, customInstructions?: string) 
 }
 
 export const makeGradeFlashcardPrompt = (topic: string, userAnswer: string) => {
-    return `Can you grade my flashcard? The front is asking me to define ${topic} and I have answered that it is ${userAnswer}. I am not asking you to create a flashcard.`
+    return `Can you grade my flashcard? The front is asking me to define ${topic} and I have answered that it is ${userAnswer}. I am not asking you to create a flashcard (use the grade_flashcard function), and if the question is very broad, accept just a single example as a correct answer.`
 }
 
 export const filterFlashcards = (filter: Record<FlashcardCategory, boolean>, flashcards: Flashcard[]) => {
