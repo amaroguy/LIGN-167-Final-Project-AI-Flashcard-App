@@ -3,16 +3,16 @@ import { useState, useEffect } from "react"
 import { FlashcardCategory } from "../services/OpenAI/utils"
 
 export interface FlashcardFilterSelectorProps {
-    onChange: (filters: Record<FlashcardCategory, boolean>) => void
+    onChange: (filters: Record<string, boolean>) => void
 }
 
-const initFilter = Object.keys(FlashcardCategory).reduce((initFilter, cat) => ({...initFilter, [cat]: true}), {} as Record<FlashcardCategory, boolean>)
+const initFilter = Object.values(FlashcardCategory).reduce((initFilter, cat) => ({...initFilter, [cat]: true}), {} as Record<string, boolean>)
 
 export const FlashcardFilterSelector = ({onChange}: FlashcardFilterSelectorProps) => {
     
-    const [flashcardFilter, setFlashcardFilterer] = useState<Record<FlashcardCategory,boolean>>(initFilter)
+    const [flashcardFilter, setFlashcardFilterer] = useState<Record<string,boolean>>(initFilter)
 
-    const toggleCategory = (category: FlashcardCategory) => setFlashcardFilterer((old) => ({...old, [category]: !old[category]}))
+    const toggleCategory = (category: string) => setFlashcardFilterer((old) => ({...old, [category]: !old[category]}))
 
     useEffect(() => {
         onChange(flashcardFilter)
@@ -20,10 +20,10 @@ export const FlashcardFilterSelector = ({onChange}: FlashcardFilterSelectorProps
 
 
     return <div>
-        {Object.keys(FlashcardCategory).map((category) => 
+        {Object.values(FlashcardCategory).map((category) => 
             <>
-                <input type="checkbox" onChange={() => toggleCategory(category as FlashcardCategory)} checked={flashcardFilter[category as FlashcardCategory]}/>
-                <label>{category}</label>
+                <input type="checkbox" onChange={() => toggleCategory(category)} checked={flashcardFilter[category]}/>
+                <label>{category.split("_").join(" ")}</label>
             </>
         )}
     </div>

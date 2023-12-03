@@ -3,6 +3,7 @@ import { GPTService } from "../services/OpenAI/GPTService"
 import { FlashcardStore } from "../services/Storage/useFlashcardStorage"
 import FlashcardUI from "./Flashcard"
 import './styles/HomeScreen.css'
+import { AllFlashcardsDisplay } from "./AllFlashcardsDisplay"
 
 interface HomeScreenProps {
     setLoading: (status: boolean) => any,
@@ -41,6 +42,6 @@ export default function HomeScreen({gptService, flashcardStore}: HomeScreenProps
         {/* <div className="flashcard-drawing"><h2>Show All Flashcards...</h2></div> */}
         {errorMsg && <div> {errorMsg} </div>}
         {gptService.isFlashcardBeingGenerated && <div> Generating Flashcard... </div>}
-        {<div>{flashcardStore.areFlashcardsLoading ? "Loading..." : areFlashcardsShowing && renderFlashcards()}</div>}
+        {<div>{flashcardStore.areFlashcardsLoading ? "Loading..." : areFlashcardsShowing && <AllFlashcardsDisplay flashcards={flashcardStore.flashcards}/>}</div>}
     </> 
 }

@@ -11,13 +11,13 @@ export interface FlashcardFunctionArgs {
 }
 
 export enum FlashcardCategory {
-    COURSE_INFORMATION = "COURSE_INFORMATION",
-    PHONETICS = "PHONETICS",
-    PHONOLOGY = "PHONOLOGY",
-    MORPHOLOGY = "MORPHOLOGY",
-    SYNTAX = "SYNTAX",
-    SEMANTICS = "SEMANTICS",
-    PRAGMATICS = "PRAGMATICS"
+    COURSE_INFORMATION = "course_information",
+    PHONETICS = "phonetics",
+    PHONOLOGY = "phonology",
+    MORPHOLOGY = "morphology",
+    SYNTAX = "syntax",
+    SEMANTICS = "semantics",
+    PRAGMATICS = "pragmatics"
 }
 
 export const isBadRunStatus = ({status}: OpenAI.Beta.Threads.Run) => {
