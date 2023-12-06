@@ -14,3 +14,10 @@
     border-radius: 0;
     width: 50%
 }
+
+.error {
+    background-color: pink;
+    border-radius: 10px;
+    width: 50%;
+    margin: 30px auto;
+}

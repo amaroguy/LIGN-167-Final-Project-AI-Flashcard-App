@@ -17,6 +17,10 @@ export default function HomeScreen({gptService, flashcardStore}: HomeScreenProps
     const [errorMsg, setErrorMsg] = useState("")
 
     const renderFlashcards = () => {
+        if (flashcardStore.flashcards.length === 0) {
+            // Return a message if there are no flashcards
+            return <h1>There are currently no flashcards generated.</h1>;
+        }
         console.log("rendering")
         return flashcardStore.flashcards.map((f) => <div className="my"> <FlashcardUI front={f.front} back={f.back} category = {f.category}/> </div>)
       }
@@ -36,12 +40,20 @@ export default function HomeScreen({gptService, flashcardStore}: HomeScreenProps
             <input type="text" onChange={(e) => setTopic(e.target.value)} placeholder="Insert topic here..."/>
             <div>
                 <button disabled = {topic.length === 0} onClick={() => generateFlashcard(topic)}> Study </button>
-                <button onClick = {() => setAreFlashcardsShowing(!areFlashcardsShowing)}> {areFlashcardsShowing ? "Hide" : "Show"} all flashcards </button>
+                <button id="toggle_flashcards" onClick = {() => setAreFlashcardsShowing(!areFlashcardsShowing)}>
+                 {areFlashcardsShowing ? "Hide" : "Show"} All Flashcards</button>
             </div>
         </div>
-        {/* <div className="flashcard-drawing"><h2>Show All Flashcards...</h2></div> */}
-        {errorMsg && <div> {errorMsg} </div>}
+        {errorMsg && <div className="error"> {errorMsg} </div>}
         {gptService.isFlashcardBeingGenerated && <div> Generating Flashcard... </div>}
-        {<div>{flashcardStore.areFlashcardsLoading ? "Loading..." : areFlashcardsShowing && <AllFlashcardsDisplay flashcards={flashcardStore.flashcards}/>}</div>}
+
+        {/* Conditional rendering for displaying flashcards or a message */}
+        {flashcardStore.areFlashcardsLoading ? (
+            <div>Loading...</div>
+        ) : areFlashcardsShowing && (
+            flashcardStore.flashcards.length > 0 ? 
+            <AllFlashcardsDisplay flashcards={flashcardStore.flashcards}/> :
+            <div className="flashcard-drawing"><h2>No Flashcards to Study</h2></div>
+        )}
     </> 
 }

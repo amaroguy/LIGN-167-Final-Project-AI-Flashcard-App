@@ -107,7 +107,7 @@ export const StudyMode = ({flashcards, setAppState, gptService}: StudyModeProps)
 
     if(flashcards.length == 0){
         return <>
-            <h1> No flashcards to study! </h1>
+            <h1> No Flashcards to Study! </h1>
             <div className="flashcard-drawing"><h2>Empty...</h2></div>
         </>
     }
@@ -121,7 +121,7 @@ export const StudyMode = ({flashcards, setAppState, gptService}: StudyModeProps)
                 <input placeholder="Your answer here..." value={userAnswer} onChange = {(e) => setUserAnswer(e.target.value)} disabled={isGrading}/>    
                 <button onClick = {() => gradeFlashcard(userAnswer)} disabled={isGrading}> Submit answer </button>
             </div>
-            {errorMessage.length && <div> {errorMessage} </div>}
+            {errorMessage.length && <div className="error"> {errorMessage} </div>}
             {gptService.isFlashcardBeingGraded && <div> Grading Flashcard... </div>}
             {flashcardGradeResult.correctness !== CorrectnessState.UNDECIDED && !isGrading && getCorrectnessUI(flashcardGradeResult) } 
             <div className = "study-mode-controls">

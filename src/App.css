@@ -136,6 +136,11 @@ nav {
 
 }
 
+input {
+    color: white;
+}
+
+
 /*
 styles for SettingsScreen.tsx:
 */
@@ -150,5 +155,4 @@ styles for SettingsScreen.tsx:
 
 #settings_input {
     width: 150px;
-    color: white;
 }

@@ -28,8 +28,8 @@ export const SettingsScreen = ({settings}: SettingsScreenProps) => {
     }
 
     return <div>
-        this isnt finished yet lol
-        <h3>Custom flashcard instructions</h3> 
+        {/*this isnt finished yet lol*/}
+        <h3>Custom Flashcard Instructions</h3> 
         <textarea id="settings_textarea" rows="4" cols="45" placeholder="Example: Phrase the front as a question and the back as an answer" onChange = {(e) => setInputtedFlashcardPrompt(e.target.value)} value={inputtedFlashcardPrompt} maxLength={250}/> 
         <h3>API Key</h3>
         <input id="settings_input" placeholder="Your OpenAPI Key here" onChange = {(e) => setInputtedApiKey(e.target.value)} value={inputtedApiKey}/> 
