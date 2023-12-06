@@ -47,8 +47,8 @@ function App() {
         className={`nav-btn l-corner ${activeNavButton === 'study' ? 'active' : ''}`}> Study Mode </button>
         <button onClick={() => {setAppState(APP_MODE.HOME_SCREEN); setActiveNavButton('home');}}
         className={`nav-btn ${activeNavButton === 'home' ? 'active' : ''}`}> Home </button>
-        <button onClick= {() => {setAppState(APP_MODE.DEBUG_MODE); setActiveNavButton('debug');}} 
-        className={`nav-btn ${activeNavButton === 'debug' ? 'active' : ''}`}> DEBUG MODE </button>
+        {/* <button onClick= {() => {setAppState(APP_MODE.DEBUG_MODE); setActiveNavButton('debug');}} 
+        className={`nav-btn ${activeNavButton === 'debug' ? 'active' : ''}`}> DEBUG MODE </button> */}
         <button onClick = {() => {setAppState(APP_MODE.SETTINGS_SCREEN); setActiveNavButton('settings');}} 
         className={`nav-btn r-corner ${activeNavButton === 'settings' ? 'active' : ''}`}> Settings </button>
       </nav>
