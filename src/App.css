@@ -135,3 +135,20 @@ nav {
 
 
 }
+
+/*
+styles for SettingsScreen.tsx:
+*/
+
+#settings_textarea {
+    color: white;
+    padding: 10px;
+}
+#settings_textarea:focus {
+    outline: 1px solid gray;
+}
+
+#settings_input {
+    width: 150px;
+    color: white;
+}
