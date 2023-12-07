@@ -39,7 +39,7 @@ export default function HomeScreen({gptService, flashcardStore}: HomeScreenProps
         <div id="home-screen-trio">
             <input type="text" onChange={(e) => setTopic(e.target.value)} placeholder="Insert topic here..."/>
             <div>
-                <button disabled = {topic.length === 0} onClick={() => generateFlashcard(topic)}> Study </button>
+                <button disabled = {topic.length === 0 || gptService.isFlashcardBeingGenerated} onClick={() => generateFlashcard(topic)}> Study </button>
                 <button id="toggle_flashcards" onClick = {() => setAreFlashcardsShowing(!areFlashcardsShowing)}>
                  {areFlashcardsShowing ? "Hide" : "Show"} All Flashcards</button>
             </div>
