@@ -1,9 +1,10 @@
 .flashcard {
     overflow: hidden;
+    width: 70%;
+    margin: 0 auto;
     border-radius: 4px;
     background-color: #FAFCF9;
     background-size: 100% 1.5em; /* Size of the lines */
-
 }
 
 .flashcard-content {

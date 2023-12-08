@@ -150,6 +150,25 @@ input, textarea {
   }
 }
 
+.success {
+    background-color: rgba(144, 238, 144, 0.4); /* lightgreen with 50% opacity */
+    border-radius: 10px;
+    width: 80%;
+    padding: 10px;
+    margin: 30px auto;
+}
+
+.fail {
+    background-color: rgba(216, 135, 145, 0.5); /* #D98791 equivalent with 50% opacity */
+}
+
+.loading {
+    background-color: #FFFFAA;
+    border-radius: 10px;
+    width: 80%;
+    padding: 10px;
+    margin: 30px auto;
+}
 
 /*
 styles for SettingsScreen.tsx:

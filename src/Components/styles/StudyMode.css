@@ -1,5 +1,6 @@
 .study-container {
-    margin-top: 1rem;
+    margin: 1rem auto;
+    width: 70%;
 }
 
 .study-grade-result {
@@ -11,14 +12,6 @@
     justify-content: center;
     min-height: 5rem;
     width: 70%;
-}
-
-.grade-correct {
-    background-color: rgba(144, 238, 144, 0.4); /* lightgreen with 50% opacity */
-}
-
-.grade-incorrect {
-    background-color: rgba(216, 135, 145, 0.5); /* #D98791 equivalent with 50% opacity */
 }
 
 .study-answer-container {
@@ -38,7 +31,6 @@
     flex: 4;
     border-radius: 0;
 }
-
 
 
 .study-mode-controls {
