@@ -139,17 +139,45 @@ nav {
 
 }
 
-input {
-    color: black;
+/* Default styles for light mode */
+input, textarea {
+  color: black;
+  /* other styles */
 }
 
+/* Styles for dark mode */
+@media (prefers-color-scheme: dark) {
+  input, textarea {
+    color: white;
+    /* other styles for dark mode */
+  }
+}
+
+.success {
+    background-color: rgba(144, 238, 144, 0.4); /* lightgreen with 50% opacity */
+    border-radius: 10px;
+    width: 80%;
+    padding: 10px;
+    margin: 30px auto;
+}
+
+.fail {
+    background-color: rgba(216, 135, 145, 0.5); /* #D98791 equivalent with 50% opacity */
+}
+
+.loading {
+    background-color: #FFFFAA;
+    border-radius: 10px;
+    width: 80%;
+    padding: 10px;
+    margin: 30px auto;
+}
 
 /*
 styles for SettingsScreen.tsx:
 */
 
 #settings_textarea {
-    color: black;
     padding: 10px;
 }
 #settings_textarea:focus {
@@ -158,5 +186,4 @@ styles for SettingsScreen.tsx:
 
 #settings_input {
     width: 150px;
-    color: black;
 }

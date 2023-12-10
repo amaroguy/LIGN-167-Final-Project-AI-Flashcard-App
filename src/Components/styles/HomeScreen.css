@@ -26,3 +26,8 @@
     width: 50%;
     margin: 30px auto;
 }
+
+#msg-container {
+    width: 50%;
+    margin: 0 auto;
+}

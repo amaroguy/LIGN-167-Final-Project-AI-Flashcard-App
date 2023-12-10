@@ -38,17 +38,28 @@ export default function HomeScreen({gptService, flashcardStore}: HomeScreenProps
         <div id="home-screen-trio">
             <input type="text" onChange={(e) => setTopic(e.target.value)} placeholder="Insert topic here..."/>
             <div>
-                <button disabled = {topic.length === 0 || gptService.isFlashcardBeingGenerated} onClick={() => generateFlashcard(topic)}> Study </button>
+                <button disabled = {topic.length === 0 || gptService.isFlashcardBeingGenerated} onClick={() => generateFlashcard(topic)}> Generate Flashcard </button>
                 <button id="toggle_flashcards" onClick = {() => setAreFlashcardsShowing(!areFlashcardsShowing)}>
                  {areFlashcardsShowing ? "Hide" : "Show"} All Flashcards</button>
             </div>
         </div>
-        {errorMsg && <div className="error"> {errorMsg} </div>}
-        {gptService.isFlashcardBeingGenerated && <div> Generating Flashcard... </div>}
+
+        <div id="msg-container">
+            {errorMsg && <div className="error"> {errorMsg} </div>}
+            {gptService.isFlashcardBeingGenerated && <div className="loading"> Generating Flashcard... </div>}
+            
+            {/* Conditional rendering for the new message */}
+            {!areFlashcardsShowing && !gptService.isFlashcardBeingGenerated && flashcardStore.flashcards.length > 0 && (
+                <div className="success">
+                    You have flashcards to study!
+                    Go to <strong>Study Mode</strong> to study or click <strong>Show All Flashcards</strong> to see them all!
+                </div>
+            )}
+        </div>
 
         {/* Conditional rendering for displaying flashcards or a message */}
         {flashcardStore.areFlashcardsLoading ? (
-            <div>Loading...</div>
+            <div className="loading">Loading...</div>
         ) : areFlashcardsShowing && (
             flashcardStore.flashcards.length > 0 ? 
             <AllFlashcardsDisplay flashcards={flashcardStore.flashcards} flashcardStore={flashcardStore}/> :
