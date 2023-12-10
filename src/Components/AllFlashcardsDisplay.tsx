@@ -1,15 +1,15 @@
-import { FlashcardCategory } from "../services/OpenAI/utils"
 import { Flashcard } from "../services/Storage/FlashcardStorage"
+import { FlashcardStore } from "../services/Storage/useFlashcardStorage"
 import FlashcardUI from "./Flashcard"
 import { FlashcardFilterSelector } from "./FlashcardFilterer"
 import { useEffect, useState } from "react"
-import { lowerCase } from "lodash"
 
 interface AllFlashcardsDisplayProps {
-    flashcards: Flashcard[]
+    flashcards: Flashcard[],
+    flashcardStore: FlashcardStore
 }
 
-export const AllFlashcardsDisplay = ({flashcards}: AllFlashcardsDisplayProps) => {
+export const AllFlashcardsDisplay = ({flashcards, flashcardStore}: AllFlashcardsDisplayProps) => {
 
     
     
@@ -33,6 +33,6 @@ export const AllFlashcardsDisplay = ({flashcards}: AllFlashcardsDisplayProps) =>
 
    return <>
         <FlashcardFilterSelector onChange = {filterFlashcards}/>
-        {filteredFlashcards.map((f) => <div key={f.threadId + "-div"} className="my"> <FlashcardUI key={f.threadId + "-fc"} front={f.front} back={f.back} category = {f.category}/> </div>)}
+        {filteredFlashcards.map((f) => <div key={f.threadId + "-div"} className="my"> <FlashcardUI key={f.threadId + "-fc"} flashcard={f} flashcardStore={flashcardStore}/> </div>)}
     </>
 }

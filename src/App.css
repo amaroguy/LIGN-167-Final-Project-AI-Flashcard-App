@@ -76,6 +76,8 @@ input:focus {
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
+
+
 #home-screen-trio input {
     border-radius: 0px;
     border: 0px;
@@ -87,6 +89,7 @@ nav {
 }
 
 .nav-btn {
+    height: 100%;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;

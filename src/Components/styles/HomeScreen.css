@@ -10,9 +10,14 @@
     height: 2rem;
 }
 
-#home-screen-trio > div > button {
-    border-radius: 0;
-    width: 50%
+#home-screen-trio > div  button {
+    flex: 1
+}
+
+#home-screen-trio > div {
+    width: 100%;
+    display: flex;
+    justify-content: stretch;
 }
 
 .error {

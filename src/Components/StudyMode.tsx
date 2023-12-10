@@ -4,11 +4,13 @@ import FlashcardUI from "./Flashcard"
 import { APP_MODE } from "../utils"
 import { GPTService } from "../services/OpenAI/GPTService"
 import "./styles/StudyMode.css"
+import { FlashcardStore } from "../services/Storage/useFlashcardStorage"
 
 interface StudyModeProps {
     flashcards: Flashcard[]
     setAppState: (appState: APP_MODE) => void,
-    gptService: GPTService
+    gptService: GPTService,
+    flashcardStore: FlashcardStore
 }
 
 enum CorrectnessState {
@@ -28,7 +30,7 @@ const UNDECIDED_STATE: FlashcardGradeResult = {
     correctness: CorrectnessState.UNDECIDED
 }
 
-export const StudyMode = ({flashcards, setAppState, gptService}: StudyModeProps) => {
+export const StudyMode = ({flashcards, setAppState, gptService, flashcardStore}: StudyModeProps) => {
     
 
     console.log(flashcards)
@@ -114,7 +116,7 @@ export const StudyMode = ({flashcards, setAppState, gptService}: StudyModeProps)
 
     return <>
         <h3> {(currentFlashcardIndex + 1) + "/" + flashcards.length} </h3>
-        <FlashcardUI front={flashcards[currentFlashcardIndex].front} back={flashcards[currentFlashcardIndex].back} category={flashcards[currentFlashcardIndex].category}/>
+        <FlashcardUI flashcard={flashcards[currentFlashcardIndex]} flashcardStore={flashcardStore}/>
         
         <div className = "study-container">
             <div className = "study-answer-container">

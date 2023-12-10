@@ -5,7 +5,9 @@ export interface FlashcardStore {
     flashcards: Flashcard[],
     areFlashcardsLoading: boolean,
     addFlashcard: (flashcard: Flashcard) => Promise<void>,
-    deleteAllFlashcards: () => Promise<void>
+    deleteAllFlashcards: () => Promise<void>,
+    deleteSingularFlashcard: (flashcardId: string) => Promise<void>,
+    _deleteAllFlashcards: () => Promise<void>
 }
 
 export const useFlashcardStorage = () => {
@@ -33,6 +35,17 @@ export const useFlashcardStorage = () => {
         setFlashcards([])
     }
 
+    const deleteSingularFlashcard = async (flashcardId: string) => {
+        window.flashcardStore.deleteSingular(flashcardId)
+        setFlashcards((old) => old.filter(({threadId}) => threadId !== flashcardId))
+    }
+    
+    const _deleteAllFlashcards = async () => {
+        window.flashcardStore.deleteAll()
+        setFlashcards([])
+    }
+
+
     useEffect(() => {
         fetchFlashcards()
     }, [])
@@ -41,6 +54,8 @@ export const useFlashcardStorage = () => {
         flashcards,
         areFlashcardsLoading,
         addFlashcard,
-        deleteAllFlashcards
+        deleteAllFlashcards,
+        deleteSingularFlashcard,
+        _deleteAllFlashcards
     } as FlashcardStore
 }

@@ -25,13 +25,13 @@ function App() {
         return <HomeScreen setLoading = {setIsLoading} gptService={gptService} flashcardStore = {flashcardStore}/>
       }
       case APP_MODE.STUDY_MODE: {
-        return <StudyMode flashcards = {flashcardStore.flashcards} setAppState = {setAppState} gptService={gptService}/>
+        return <StudyMode flashcards = {flashcardStore.flashcards} setAppState = {setAppState} gptService={gptService} flashcardStore={flashcardStore}/>
       }
       case APP_MODE.DEBUG_MODE: {
         return <DebugScreen />
       }
       case APP_MODE.SETTINGS_SCREEN: {
-        return <SettingsScreen settings={settings}/>
+        return <SettingsScreen settings={settings} flashcardStore={flashcardStore}/>
       }
     }
   }

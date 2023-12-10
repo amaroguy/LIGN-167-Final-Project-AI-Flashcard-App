@@ -10,13 +10,6 @@
     padding: 1.65rem 2rem;
     height: 100%;
     flex: 9;
-    background-image: repeating-linear-gradient(
-        to bottom,
-        transparent,
-        transparent 1.4em, /* Adjust this to control the line spacing */
-        #ADD8E6 1.4em,
-        #ADD8E6 1.5em /* Adjust this to control the thickness of the line */
-      );
 }
 
 .flashcard-bottom > button {
@@ -36,10 +29,22 @@
 }
 
 .flashcard-category {
-    border-bottom: 2px solid pink;
-    padding: 0.25rem 0;
-    padding-right: 1rem;
     text-align: end;
     font-weight: bold;
+}
+
+.flashcard-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem
+}
+
+.flashcard-button {
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+.flashcard-button:hover {
+    background-color: darkgray;
 }
 

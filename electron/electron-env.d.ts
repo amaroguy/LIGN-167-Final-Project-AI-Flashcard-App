@@ -31,7 +31,8 @@ declare global{
       getAll: () => Promise<Flashcard[]>,
       set:  (flashcards : Flashcard[]) => void
       add: (flashcard: Flashcard) => void
-      deleteAll: () => void
+      deleteAll: () => void,
+      deleteSingular: (flashcardId: string) => void
     },
     settings: {
       getApiKey: () => Promise<string>,

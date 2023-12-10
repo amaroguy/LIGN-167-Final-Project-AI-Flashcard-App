@@ -1,24 +1,28 @@
 
 import { useState } from "react";
 import "./styles/Flashcard.css"
-import { FlashcardCategory } from "../services/OpenAI/utils";
+import { Flashcard } from "../services/Storage/FlashcardStorage";
+import { FlashcardStore } from "../services/Storage/useFlashcardStorage";
 
 
 interface FlashcardProps {
-    front: string;
-    back: string;
-    category: FlashcardCategory
+    flashcard: Flashcard
+    flashcardStore: FlashcardStore
 }
 
-export default function FlashcardUI({front, back, category}: FlashcardProps){ 
+export default function FlashcardUI({flashcard, flashcardStore}: FlashcardProps){ 
     
+    const {front, back, category, threadId} = flashcard
     const [isFlipped, setIsFlipped] = useState(false)
     const flipCard = () => setIsFlipped(!isFlipped)
 
 
 
     return <div className="flashcard">
-        <div className = "flashcard-category"> Category: {category} </div>
+        <div className = "flashcard-nav">
+            <button className = "flashcard-button" onClick={() => flashcardStore.deleteSingularFlashcard(threadId)}> Delete Flashcard </button>
+            <div className = "flashcard-category"> Category: {category} </div>
+        </div>
         <div className="flashcard-container">
             <div className = "flashcard-content"> {!isFlipped ? front : back} </div>
             <div className="flashcard-bottom">

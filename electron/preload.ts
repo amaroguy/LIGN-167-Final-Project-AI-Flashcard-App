@@ -8,7 +8,8 @@ contextBridge.exposeInMainWorld('flashcardStore', {
   getAll: () => ipcRenderer.invoke('fc:getAll'),
   set: (flashcards: Flashcard[]) => ipcRenderer.invoke('fc:set', flashcards),
   add: (flashcard: Flashcard) => ipcRenderer.invoke('fc:add', flashcard),
-  deleteAll: () => ipcRenderer.invoke("fc:deleteAll")
+  deleteAll: () => ipcRenderer.invoke("fc:deleteAll"),
+  deleteSingular: (flashcardId: string) => ipcRenderer.invoke("fc:deleteSingular", flashcardId)
 })
 
 contextBridge.exposeInMainWorld('settings', {

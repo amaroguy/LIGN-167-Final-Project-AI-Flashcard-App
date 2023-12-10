@@ -87,6 +87,14 @@ app.whenReady().then(() => {
     store.set('flashcards', flashcards)
     console.log("SHOULD BE", store.get('flashcards'))
   })
+
+  //@ts-ignore
+  ipcMain.handle('fc:deleteSingular', (event, flashcardId) => {
+    let flashcards = store.get('flashcards', []) as Flashcard[]
+    flashcards = flashcards.filter(({threadId}) => threadId !== flashcardId)
+    store.set('flashcards', flashcards)
+    console.log("SHOULD BE", store.get('flashcards'))
+  })
   
   ipcMain.handle('settings:getApiKey', () => {
     console.log("getting the apikey!")

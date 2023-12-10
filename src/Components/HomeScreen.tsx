@@ -1,7 +1,6 @@
 import {useState} from "react"
 import { GPTService } from "../services/OpenAI/GPTService"
 import { FlashcardStore } from "../services/Storage/useFlashcardStorage"
-import FlashcardUI from "./Flashcard"
 import './styles/HomeScreen.css'
 import { AllFlashcardsDisplay } from "./AllFlashcardsDisplay"
 
@@ -16,14 +15,14 @@ export default function HomeScreen({gptService, flashcardStore}: HomeScreenProps
     const [topic, setTopic] = useState("")
     const [errorMsg, setErrorMsg] = useState("")
 
-    const renderFlashcards = () => {
-        if (flashcardStore.flashcards.length === 0) {
-            // Return a message if there are no flashcards
-            return <h1>There are currently no flashcards generated.</h1>;
-        }
-        console.log("rendering")
-        return flashcardStore.flashcards.map((f) => <div className="my"> <FlashcardUI front={f.front} back={f.back} category = {f.category}/> </div>)
-      }
+    // const renderFlashcards = () => {
+    //     if (flashcardStore.flashcards.length === 0) {
+    //         // Return a message if there are no flashcards
+    //         return <h1>There are currently no flashcards generated.</h1>;
+    //     }
+    //     console.log("rendering")
+    //     return flashcardStore.flashcards.map((f) => <div className="my"> <FlashcardUI front={f.front} back={f.back} category = {f.category}/> </div>)
+    //   }
 
     const generateFlashcard = (topic: string) => {
         setErrorMsg("")
@@ -52,7 +51,7 @@ export default function HomeScreen({gptService, flashcardStore}: HomeScreenProps
             <div>Loading...</div>
         ) : areFlashcardsShowing && (
             flashcardStore.flashcards.length > 0 ? 
-            <AllFlashcardsDisplay flashcards={flashcardStore.flashcards}/> :
+            <AllFlashcardsDisplay flashcards={flashcardStore.flashcards} flashcardStore={flashcardStore}/> :
             <div className="flashcard-drawing"><h2>No Flashcards to Study</h2></div>
         )}
     </> 

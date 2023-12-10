@@ -12,15 +12,18 @@
 
 import { useState } from "react"
 import { Settings } from "../services/Settings/Settings"
+import { FlashcardStore } from "../services/Storage/useFlashcardStorage"
 
 interface SettingsScreenProps {
-    settings: Settings
+    settings: Settings,
+    flashcardStore: FlashcardStore
 }
 
-export const SettingsScreen = ({settings}: SettingsScreenProps) => {
+export const SettingsScreen = ({settings, flashcardStore}: SettingsScreenProps) => {
 
     const [inputtedFlashcardPrompt, setInputtedFlashcardPrompt] = useState(settings.flashcardPrompt)
     const [inputtedApiKey, setInputtedApiKey] = useState(settings.apiKey)
+    const [deleteAllConfirmation, setDeleteAllConfirmation] = useState(false)
 
     const saveSettings = () => {
         settings.setApiKey(inputtedApiKey)
@@ -31,6 +34,14 @@ export const SettingsScreen = ({settings}: SettingsScreenProps) => {
         <h3>Custom flashcard instructions</h3> 
         <p> This is set by default to provide the topic in the front, and an example/explanation in the back</p> 
         <textarea id="settings_textarea" rows={4} cols={45} placeholder="Example: Phrase the front as a question and the back as an answer" onChange = {(e) => setInputtedFlashcardPrompt(e.target.value)} value={inputtedFlashcardPrompt} maxLength={250}/> 
+        <h3>Delete All Flashcards</h3>
+        <div>
+            <div>
+                <input type="checkbox" checked={deleteAllConfirmation} onChange={() => setDeleteAllConfirmation(!deleteAllConfirmation)}/>
+                <label>I am sure I want to delete all my flashcards</label>
+            </div>
+            <button onClick = {() => flashcardStore.deleteAllFlashcards()} disabled={!deleteAllConfirmation}> Delete All Flashcards </button>
+        </div>
         <h3>API Key</h3>
         <input id="settings_input" placeholder="Your OpenAPI Key here" onChange = {(e) => setInputtedApiKey(e.target.value)} value={inputtedApiKey}/> 
         <div><button onClick = {saveSettings}> Save Settings </button></div>
