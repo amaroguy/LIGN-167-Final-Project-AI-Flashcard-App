@@ -11,7 +11,6 @@ export interface FlashcardFunctionArgs {
 }
 
 export enum FlashcardCategory {
-    COURSE_INFORMATION = "course_information",
     PHONETICS = "phonetics",
     PHONOLOGY = "phonology",
     MORPHOLOGY = "morphology",

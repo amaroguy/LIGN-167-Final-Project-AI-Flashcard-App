@@ -20,7 +20,7 @@ export default function FlashcardUI({flashcard, flashcardStore}: FlashcardProps)
 
     return <div className="flashcard">
         <div className = "flashcard-nav">
-            <button className = "flashcard-button" onClick={() => flashcardStore.deleteSingularFlashcard(threadId)}> Delete Flashcard </button>
+            <button className = "flashcard-button" onClick={() => flashcardStore.deleteSingularFlashcard(threadId)}> 🗑️ </button>
             <div className = "flashcard-category"> Category: {category} </div>
         </div>
         <div className="flashcard-container">

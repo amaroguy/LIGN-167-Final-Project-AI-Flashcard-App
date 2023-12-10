@@ -1,0 +1,22 @@
+.filter-btns {
+    display: flex;
+    margin-top: 1.25rem;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.filters-top-margin {
+    margin-top: 1.25rem
+}
+
+.filter-off {
+    background-color: #e9eaff;
+}
+
+.filter-selector-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
