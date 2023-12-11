@@ -174,7 +174,8 @@ export function createGPTService(
                     }
     
                     flashcardStore.addFlashcard(parsedArgs as Flashcard)
-    
+                    setIsFlashcardBeingGenerated(false)
+
                     console.log("FLASHCARD CALL", parsedArgs)
     
                     //Tell it that it did a good job

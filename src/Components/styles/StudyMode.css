@@ -42,3 +42,11 @@
 .study-mode-controls > button {
     width: 45%
 }
+
+.grade-correct {
+    background-color: rgba(0,128,0,0.3);
+}
+
+.grade-incorrect {
+    background-color: rgba(128,0,0,0.5);
+}
