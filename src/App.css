@@ -174,7 +174,7 @@ input, textarea {
 }
 
 /*
-styles for SettingsScreen.tsx:
+styles for SettingsScreen.tsx
 */
 
 #settings_textarea {
@@ -186,4 +186,9 @@ styles for SettingsScreen.tsx:
 
 #settings_input {
     width: 150px;
+    margin-bottom: 40px;
+}
+
+#settings_delete_h3 {
+    margin-top: 50px;
 }
